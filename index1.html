@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Tareas Pendientes</title>
+    <style>
+        /* Estilos CSS básicos */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #76b1ff;
+            margin: 0;
+            padding: 0;
+        }
+
+        #todoList {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #ff3582;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        h2 {
+            color: #333;
+            text-align: center;
+        }
+
+        #todoForm {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        #task {
+            flex: 1;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #bd59ff;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        button[type="submit"] {
+            background-color: #c2025b;
+            color: #ffb0e5;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #fc9cff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            background-color: #ff0080;
+            color: #000000;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 5px;
+        }
+
+        button:hover {
+            background-color: #ff0000;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="todoList">
+        <h2>Lista de Tareas Pendientes</h2>
+        <form id="todoForm">
+            <input type="text" id="task" placeholder="Agregar nueva tarea" required>
+            <button type="submit">Agregar</button>
+        </form>
+        <ul id="taskList">
+            <!-- Aquí se mostrarán las tareas -->
+        </ul>
+    </div>
+
+    <script>
+        // JavaScript
+        const todoForm = document.getElementById('todoForm');
+        const taskInput = document.getElementById('task');
+        const taskList = document.getElementById('taskList');
+        
+        // Arreglo para almacenar las tareas
+        const tasks = [];
+
+        // Función para agregar una tarea
+        function addTask(taskText) {
+            tasks.push(taskText);
+            renderTasks();
+        }
+
+        // Función para renderizar las tareas en la lista
+        function renderTasks() {
+            taskList.innerHTML = '';
+            for (let i = 0; i < tasks.length; i++) {
+                const task = tasks[i];
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    ${task} 
+                    <button onclick="completeTask(${i})">Completar</button>
+                    <button onclick="deleteTask(${i})">Eliminar</button>
+                `;
+                taskList.appendChild(listItem);
+            }
+        }
+
+        // Función para marcar una tarea como completada
+        function completeTask(index) {
+            // Implementa aquí la lógica para marcar una tarea como completada
+            // Puedes agregar una clase CSS o cambiar el estilo del texto, por ejemplo.
+        }
+
+        // Función para eliminar una tarea
+        function deleteTask(index) {
+            tasks.splice(index, 1);
+            renderTasks();
+        }
+
+        // Event listener para el formulario
+        todoForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+            const taskText = taskInput.value.trim();
+            if (taskText !== '') {
+                addTask(taskText);
+                taskInput.value = '';
+            }
+        });
+
+        // Renderiza las tareas iniciales
+        renderTasks();
+    </script>
+</body>
+</html>
